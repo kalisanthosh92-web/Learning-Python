@@ -29,7 +29,7 @@ for students in student_marks:
     print(f'| {students[0]:<35}',end = ' | ')
     for i in range(1,5):   
         print(f'{students[i]:^5}',end = ' | ')
-    print(f'{average:.2f}')
+    print(f'{average:.2f} |')
 
 
 
