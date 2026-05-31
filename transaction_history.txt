@@ -1,0 +1,15 @@
+
+--- TRANSACTION HISTORY ---
+Group Name: Roswaal Credit Association (ROSCA)
+Handler: ?
+Fullname: Kumar
+Join Date: 06/02/2006
+Status: SCAMMED
+Payout: ?
+
+--- TRANSACTION HISTORY ---
+Group Name: Hoshin Pay
+Handler: Anastasia Hoshin
+Fullname: Santos
+Join Date: 06/02/2006
+Payout: PHP 2000.00
