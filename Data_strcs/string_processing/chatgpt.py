@@ -3,50 +3,49 @@ class Node:
         self.data = data
         self.next = None
 
-
-
 class Stack:
     def __init__(self):
         self.top = None
-    
+
     def is_empty(self):
         return self.top is None
-    
+
     def push(self, data):
         new_node = Node(data)
         new_node.next = self.top
         self.top = new_node
-        print(f'{data} pushed.')
-
-    def peek(self):
-        if self.is_empty():
-            print("stack is empty.")
-            return None
-        print(f"Top element is {self.top.data}")
-        return self.top.data
+        print(f"Successfully pushed '{data}' onto the stack.")
 
     def pop(self):
         if self.is_empty():
+            print("Stack Underflow! The stack is empty.")
             return None
         popped_node = self.top
         self.top = self.top.next
-        print(f'popped {popped_node.data}.')
+        print(f"Successfully popped '{popped_node.data}' from the stack.")
         return popped_node.data
+
+    def peek(self):
+        if self.is_empty():
+            print("The stack is empty.")
+            return None
+        print(f"Top element is: {self.top.data}")
+        return self.top.data
 
     def display(self):
         if self.is_empty():
-            print('Stack is empty.')
-            return None
+            print("The stack is empty.")
+            return
+        print("Stack elements (Top -> Bottom):")
         current = self.top
         while current:
-            print(current.data)
+            print(f"| {current.data} |")
             current = current.next
-
-
+        print("-------")
 
 def main():
     stack = Stack()
-
+    
     while True:
         print("=========================================")
         print("STACK USING LINKED LIST")
@@ -72,11 +71,11 @@ def main():
             stack.display()
         elif choice == '5':
             if stack.is_empty():
-                print("The stack is empty!.")
+                print("The stack is EMPTY.")
             else:
-                print("The stack is not empty.")
+                print("The stack is NOT EMPTY.")
         elif choice == '6':
-            print("Exiting program.")
+            print("Exiting program. Goodbye!")
             break
         else:
             print("Invalid choice! Please enter a number from 1 to 6.")
@@ -84,4 +83,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
