@@ -1,24 +1,33 @@
 student_records = [
-    ["Allen", 85],
-    ["Bob", 90],
-    ["Charles", 78],
-    ["Xavier", 88],
-    ["Eren", 92]
-]
-
+    [("Alice", 85), ("Bob", 90)],
+    [("Charlie", 78), ("David", 88), ("Eve", 92)]]
 
 #part A
 def count_students(records):
     if bool(records) == False:
         return 0
-    return 1 + count_students(records[1:])
+
+    current_group = records[0]
+    if bool(current_group) == False:
+        return count_students(records[1:])
+    remaining_in_group = current_group[1:]
+    updated_records = [remaining_in_group] + records[1:]
+    return 1 + count_students(updated_records)
+    
 
 
 def calculate_total(records):
     if bool(records) == False:
         return 0
-    current_mark = records[0][1]
-    return current_mark + calculate_total(records[1:])
+    
+    current_group = records[0]
+    if bool(current_group) == False:
+        return calculate_total(records[1:])
+    
+    current_mark = current_group[0][1]
+    remaining_in_group = current_group[1:]
+    updated_records = [remaining_in_group] + records[1:]
+    return current_mark + calculate_total(updated_records)
 
 def calculate_average(records):
     total_students = count_students(records)
@@ -30,52 +39,90 @@ def calculate_average(records):
 def find_highest(records):
     if bool(records) == False:
         return 0
-    highest = records[0][1]
-    marks = find_highest(records[1:])
+    
+    current_group = records[0]
+    if bool(current_group) == False:
+        return find_highest(records[1:])
+    
+    highest = current_group[0][1]
+    remaining_in_group = current_group[1:]
+    updated_records = [remaining_in_group] + records[1:]
+    
+    marks = find_highest(updated_records)
     if highest < marks:
         return marks
     return highest
 
 def search_student(records, name):
     if bool(records) == False:
-        print('Student not found.')
+        print('Student Not Found.')
         return None
-    student = records[0]
+    
+    current_group = records[0]
+    if bool(current_group) == False:
+        return search_student(records[1:], name)
+    
+    student = current_group[0]
     if student[0].lower() == name.lower():
-        print("Student Found!")
-        print(f'Name: {student[0]}')
-        print(f"Grades: {student[1]}")
+        print("\nStudent Found!")
+        print(f"Name: {student[0]}")
+        print(f"Grade: {student[1]}")
         return student
-    return search_student(records[1:], name)
+    
+    remaining_in_group = current_group[1:]
+    updated_records = [remaining_in_group] + records[1:]
+    return search_student(updated_records, name)
 
 def display_records(records):
     if bool(records) == False:
         return None
-    student = records[0]
+    
+    current_group = records[0]
+    if bool(current_group) == False:
+        return display_records(records[1:])
+    
+    student = current_group[0]
     print(f"{student[0]}: {student[1]}")
-    display_records(records[1:])
+    
+    remaining_in_group = current_group[1:]
+    updated_records = [remaining_in_group] + records[1:]
+    display_records(updated_records)
 
 
 def count_passed(records):
     if bool(records) == False:
         return 0
-    if records[0][1] >= 75:
+    
+    current_group = records[0]
+    if bool(current_group) == False:
+        return count_passed(records[1:])
+    
+    if current_group[0][1] >= 75:
         is_passed = 1 
-    else :
+    else:
         is_passed = 0
-    return is_passed + count_passed(records[1:])
+        
+    remaining_in_group = current_group[1:]
+    updated_records = [remaining_in_group] + records[1:]
+    return is_passed + count_passed(updated_records)
 
 
 def count_failed(records):
     if bool(records) == False:
         return 0
-    if records[0][1] < 75:
+    
+    current_group = records[0]
+    if bool(current_group) == False:
+        return count_failed(records[1:])
+    
+    if current_group[0][1] < 75:
         is_failed = 1 
-    else :
+    else:
         is_failed = 0
-    return is_failed + count_failed(records[1:])
-
-
+        
+    remaining_in_group = current_group[1:]
+    updated_records = [remaining_in_group] + records[1:]
+    return is_failed + count_failed(updated_records)
 
 def main():
     while True:
