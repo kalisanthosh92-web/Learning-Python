@@ -22,6 +22,7 @@ class BinaryTreeApp(ctk.CTk):
         self.root_node.left = Node("B")
         self.root_node.right = Node("C")
         self.root_node.left.left = Node("D")
+        self.root_node.left.left.left = Node("H")
         self.root_node.left.right = Node("E")
         self.root_node.right.left = Node("F")
         self.root_node.right.right = Node("G")
@@ -61,11 +62,16 @@ class BinaryTreeApp(ctk.CTk):
         
         actions = ctk.CTkFrame(self, fg_color="transparent")
         actions.pack(pady=5)
-        
+
+        ctk.CTkButton(
+            actions, text="Count Nodes", command=self.count_nodes, width=130
+        ).pack(side="left", padx=6)
+                
         ctk.CTkButton(
             actions, text="Next Step", command=self.next_step, width=130
         ).pack(side="left", padx=6)
         
+       
         ctk.CTkButton(
             actions, text="Reset", command=self.reset, width=100, fg_color="gray"
         ).pack(side="left", padx=6)
@@ -91,6 +97,7 @@ class BinaryTreeApp(ctk.CTk):
             "B": (250, 150),
             "C": (510, 150),
             "D": (180, 250),
+            "H": (130, 320),
             "E": (320, 250),
             "F": (440, 250),
             "G": (580, 250)
@@ -100,7 +107,8 @@ class BinaryTreeApp(ctk.CTk):
         edges = [
             ("A", "B"), ("A", "C"),
             ("B", "D"), ("B", "E"),
-            ("C", "F"), ("C", "G")
+            ("C", "F"), ("C", "G"),
+            ("D", "H")
         ]
         
         for parent, child in edges:
@@ -155,6 +163,20 @@ class BinaryTreeApp(ctk.CTk):
             if node.right:
                 queue.append(node.right)
         return result
+
+    def count(self, node):
+        if node is None:
+            return 0    
+        return 1 + self.count(node.left) + self.count(node.right)
+
+    
+    def count_nodes(self):
+        total_nodes = self.count(self.root_node)
+        self.sequence.configure(
+            text="Total nodes: " + str(total_nodes)
+        )
+
+        
 
     def choose_order(self, method):
         result = []
